@@ -1,20 +1,22 @@
 package com.example.techprotocol.controllers;
 
 import com.example.techprotocol.models.User;
+import com.example.techprotocol.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 public class UserController {
-    List<User> list;
-
+    @Autowired
+    UserRepository users;
 
     @PostMapping("/createUser")
-    public String createUser(@RequestBody User userToCreate) {
-        list.add(userToCreate);
-        return "User was created";
+    public User createUser(@RequestBody User userToCreate) {
+        userToCreate.setId(null);
+        return users.save(userToCreate);
     }
 }

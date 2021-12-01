@@ -2,13 +2,19 @@ package com.example.techprotocol.models;
 
 import lombok.Data;
 
-@Data
-public class User {
-    String email;
-    String name;
+import javax.persistence.*;
 
-    public User(String email, String name) {
-        this.email = email;
-        this.name = name;
-    }
+@Data
+@Table(name = "users")
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    private String name;
+    @Column
+    private String email;
+
+
 }
