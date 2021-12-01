@@ -11,7 +11,6 @@ import java.util.List;
 public class UserController {
     List<User> list;
 
-
     @PostMapping("/createUser")
     public String createUser(@RequestBody User userToCreate) {
         list.add(userToCreate);
