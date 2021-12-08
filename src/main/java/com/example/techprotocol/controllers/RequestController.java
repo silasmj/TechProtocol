@@ -1,5 +1,6 @@
 package com.example.techprotocol.controllers;
 
+import com.example.techprotocol.models.Friend;
 import com.example.techprotocol.models.User;
 import com.example.techprotocol.repositories.RelationRepository;
 import com.example.techprotocol.repositories.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -23,24 +25,23 @@ public class RequestController {
     @Autowired
     UserRepository users;
 
-    final String API_GREETING_POST = "http://localhost:9091/friendship";
+    String API_GREETING_POST = "";
     WebClient webClient = WebClient.create("http://localhost:9091");
 
     @PostMapping("/sendRequest")
-    public String request(Model model) {
+    public String request(Model model, @RequestBody Friend friend) {
+        API_GREETING_POST = friend.getHost();
         WebClient webClient = WebClient.builder()
                 .baseUrl(API_GREETING_POST)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-        String request = "\"hi from client\"";
-        String key = "\"request\"";
         String response = webClient.post()
-                .body(Mono.just("{"+ key +":"+request+ "}"), String.class)
+                .body(Mono.just(friend), Friend.class)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-        model.addAttribute("greeting", response);
-        return "index";
+        model.addAttribute("friendship", response);
+        return "/index";
     }
 }

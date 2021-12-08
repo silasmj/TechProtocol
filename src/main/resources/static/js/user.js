@@ -1,19 +1,19 @@
 
-function createAUser() {
-    const name = document.getElementById("create-user-name").value
-    const email = document.getElementById("create-user-email").value
+function addAFriend() {
+    const email = document.getElementById("add-user-mail").value
+    const host = document.getElementById("add-user-host").value
 
-    const user = {
-        name: name,
-        email: email
+    const friend = {
+        email: email,
+        host: host
     }
 
-    fetch( "http://localhost:8080/createUser", {
+    fetch( "http://localhost:8080/sendRequest", {
         method: "POST",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(friend)
     })
         .then(response => {
             if(response.status === 200){
