@@ -1,10 +1,13 @@
+document.getElementById("button-add-friend").addEventListener("click", addAFriend)
 
 function addAFriend() {
-    const email = document.getElementById("add-user-mail").value
+    const email = document.getElementById("add-from-user-mail").value
     const host = document.getElementById("add-user-host").value
+    const desemail = document.getElementById("add-destination-user-mail").value
 
     const friend = {
         email: email,
+        desemail: desemail,
         host: host
     }
 

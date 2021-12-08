@@ -3,6 +3,24 @@ package com.example.techprotocol.models;
 public class Friend {
     String host;
     String email;
+    String desemail;
+
+    public Friend(String host, String email, String desemail) {
+        this.email = email;
+        this.desemail = desemail;
+        this.host = host;
+    }
+
+    public Friend() {
+    }
+
+    public String getDesemail() {
+        return desemail;
+    }
+
+    public void setDesemail(String desemail) {
+        this.desemail = desemail;
+    }
 
     public Friend(String host, String email) {
         this.host = host;

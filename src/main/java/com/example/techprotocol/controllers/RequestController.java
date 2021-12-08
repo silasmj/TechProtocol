@@ -19,12 +19,6 @@ import reactor.core.publisher.Mono;
 @Controller
 public class RequestController {
 
-    @Autowired
-    RelationRepository relations;
-
-    @Autowired
-    UserRepository users;
-
     String API_GREETING_POST = "";
     WebClient webClient = WebClient.create("http://localhost:9091");
 
@@ -42,6 +36,6 @@ public class RequestController {
                 .bodyToMono(String.class)
                 .block();
         model.addAttribute("friendship", response);
-        return "/index";
+        return "index.html";
     }
 }
